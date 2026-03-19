@@ -8,13 +8,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String nombreArchivo = "resultados_simulacion.csv"; // aqui le van cambiando el nombre del archivo dependiendo la simulacion que vayan a hacer okis
+        String nombreArchivo = "resultados_simulacion-caso-3-anexos.csv"; // aqui le van cambiando el nombre del archivo dependiendo la simulacion que vayan a hacer okis
 
         try (PrintWriter pw = new PrintWriter(new FileWriter(nombreArchivo))) {
 
             // Encabezado
             pw.println("SIMULACION - CONCIERTO LOS INQUIETOS DEL NORTE");
-            pw.println("Revisores:," + Simulacion.NUM_REVISORES);
+            pw.println("Revisores:" + Simulacion.NUM_REVISORES);
             pw.println("Total personas:," + Simulacion.TOTAL_PERSONAS);
             pw.println("Intervalo llegada:," + Simulacion.MIN_LLEGADA + " - " + Simulacion.MAX_LLEGADA + " seg");
             pw.println("Intervalo atencion:," + Simulacion.MIN_ATENCION + " - " + Simulacion.MAX_ATENCION + " seg");

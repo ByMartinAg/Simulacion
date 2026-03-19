@@ -5,13 +5,13 @@ public class Simulacion {
     // Aqui van a modificar las variables con los valores ahora si, los que tenemos para todos los escenarios
 
     static final int    TOTAL_PERSONAS   = 2000;  // cantidad de asistentes
-    static final int    NUM_REVISORES    = 2;     // numero de revisores
+    static final int    NUM_REVISORES    = 4;     // numero de revisores
 
     static final int    MIN_LLEGADA      = 1;     // segundos minimo entre llegadas
     static final int    MAX_LLEGADA      = 10;    // segundos maximo entre llegadas
 
-    static final int    MIN_ATENCION     = 15;    // segundos minimo de atencion
-    static final int    MAX_ATENCION     = 40;    // segundos maximo de atencion
+    static final int    MIN_ATENCION     = 5;    // segundos minimo de atencion
+    static final int    MAX_ATENCION     = 10;    // segundos maximo de atencion
 
     static final double PROB_RECHAZO     = 0.03;  // probabilidad de rechazo (0.03 = 3%)
 
