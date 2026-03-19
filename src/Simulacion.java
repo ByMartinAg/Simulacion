@@ -7,13 +7,13 @@ public class Simulacion {
     // ================================================================
 
     static final int    TOTAL_PERSONAS   = 2000;  // cantidad de asistentes
-    static final int    NUM_REVISORES    = 3;     // numero de revisores
+    static final int    NUM_REVISORES    = 2;     // numero de revisores
 
     static final int    MIN_LLEGADA      = 1;     // segundos minimo entre llegadas
     static final int    MAX_LLEGADA      = 10;    // segundos maximo entre llegadas
 
     static final int    MIN_ATENCION     = 15;    // segundos minimo de atencion
-    static final int    MAX_ATENCION     = 45;    // segundos maximo de atencion
+    static final int    MAX_ATENCION     = 40;    // segundos maximo de atencion
 
     static final double PROB_RECHAZO     = 0.03;  // probabilidad de rechazo (0.03 = 3%)
 
@@ -23,11 +23,12 @@ public class Simulacion {
     private int[]  tiempoLibre;
     private int[]  atendidosPorRevisor;
 
-    private int tiempoFinTotal;
-    private int esperaMaxima;
-    private int personasQueEsperaron;
-    private int boletosRechazados;
-    private int filaMaxima;
+    // Resultados de esta corrida
+    int tiempoFinTotal;
+    int esperaMaxima;
+    int personasQueEsperaron;
+    int boletosRechazados;
+    int filaMaxima;
     private int filaActual;
 
     public Simulacion() {
@@ -65,17 +66,12 @@ public class Simulacion {
 
         for (int persona = 1; persona <= TOTAL_PERSONAS; persona++) {
 
-            // 1. GENERAR TIEMPO DE LLEGADA
             tiempoLlegada += aleatorio(MIN_LLEGADA, MAX_LLEGADA);
 
-            // 2. ASIGNAR AL REVISOR QUE QUEDA LIBRE PRIMERO
-            int idx = buscarRevisorOptimo();
-
-            // 3. CALCULAR INICIO DE ATENCION
+            int idx            = buscarRevisorOptimo();
             int inicioAtencion = Math.max(tiempoLlegada, tiempoLibre[idx]);
             int espera         = inicioAtencion - tiempoLlegada;
 
-            // 4. REGISTRAR ESPERA
             if (espera > 0) {
                 personasQueEsperaron++;
                 filaActual++;
@@ -85,12 +81,10 @@ public class Simulacion {
                 if (filaActual > 0) filaActual--;
             }
 
-            // 5. CALCULAR FIN DE ATENCION Y ACTUALIZAR REVISOR
             int tiempoAtencion      = aleatorio(MIN_ATENCION, MAX_ATENCION);
             tiempoLibre[idx]        = inicioAtencion + tiempoAtencion;
             atendidosPorRevisor[idx]++;
 
-            // 6. VALIDAR BOLETO
             if (random.nextDouble() < PROB_RECHAZO) {
                 boletosRechazados++;
             }
@@ -103,30 +97,28 @@ public class Simulacion {
         }
     }
 
-    public void mostrarResultados() {
-        int    minutos          = tiempoFinTotal / 60;
-        int    segundos         = tiempoFinTotal % 60;
-        int    esperaMaxMin     = esperaMaxima / 60;
-        int    esperaMaxSeg     = esperaMaxima % 60;
-        int    aceptados        = TOTAL_PERSONAS - boletosRechazados;
-        double pctEsperaron     = (double) personasQueEsperaron / TOTAL_PERSONAS * 100;
+    // Devuelve una linea CSV con los resultados de esta corrida
+    public String toCSV(int corrida) {
+        int    minutos      = tiempoFinTotal / 60;
+        int    segundos     = tiempoFinTotal % 60;
+        int    espMaxMin    = esperaMaxima / 60;
+        int    espMaxSeg    = esperaMaxima % 60;
+        int    aceptados    = TOTAL_PERSONAS - boletosRechazados;
 
-        System.out.println("================================================");
-        System.out.println("  SIMULACION - CONCIERTO LOS INQUIETOS DEL NORTE");
-        System.out.println("================================================");
-        System.out.println("Revisores activos    : " + NUM_REVISORES);
-        System.out.println("Personas procesadas  : " + TOTAL_PERSONAS);
-        System.out.println("Boletos aceptados    : " + aceptados);
-        System.out.println("Boletos rechazados   : " + boletosRechazados);
-        System.out.println("------------------------------------------------");
-        System.out.println("Tiempo total         : " + minutos + " min " + segundos + " seg");
-        System.out.println("Espera maxima        : " + esperaMaxMin + " min " + esperaMaxSeg + " seg");
-        System.out.println("Personas que esperaron: " + personasQueEsperaron + " (" + String.format("%.1f", pctEsperaron) + "%)");
-        System.out.println("Fila maxima          : " + filaMaxima + " personas");
-        System.out.println("------------------------------------------------");
+        StringBuilder sb = new StringBuilder();
+        sb.append(corrida).append(",");
+        sb.append(aceptados).append(",");
+        sb.append(boletosRechazados).append(",");
+        sb.append(minutos + "m " + segundos + "s").append(",");
+        sb.append(espMaxMin + "m " + espMaxSeg + "s").append(",");
+        sb.append(personasQueEsperaron).append(",");
+        sb.append(filaMaxima);
+
+        // atendidos por cada revisor
         for (int i = 0; i < NUM_REVISORES; i++) {
-            System.out.println("Atendidos por R" + (i + 1) + "     : " + atendidosPorRevisor[i]);
+            sb.append(",").append(atendidosPorRevisor[i]);
         }
-        System.out.println("================================================");
+
+        return sb.toString();
     }
 }
