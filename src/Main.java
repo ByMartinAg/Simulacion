@@ -12,14 +12,14 @@ public class Main {
 
         try (PrintWriter pw = new PrintWriter(new FileWriter(nombreArchivo))) {
 
-            // ── Encabezado con datos base ──────────────────────────────
+            // Encabezado
             pw.println("SIMULACION - CONCIERTO LOS INQUIETOS DEL NORTE");
             pw.println("Revisores:," + Simulacion.NUM_REVISORES);
             pw.println("Total personas:," + Simulacion.TOTAL_PERSONAS);
             pw.println("Intervalo llegada:," + Simulacion.MIN_LLEGADA + " - " + Simulacion.MAX_LLEGADA + " seg");
             pw.println("Intervalo atencion:," + Simulacion.MIN_ATENCION + " - " + Simulacion.MAX_ATENCION + " seg");
             pw.println("Probabilidad rechazo:," + (Simulacion.PROB_RECHAZO * 100) + "%");
-            pw.println("Total corridas:," + simulaciones);
+            pw.println("Total de simulaciones:," + simulaciones);
             pw.println();
 
             // esta parte se pondra hasta arriba, es el header o el encabezado de todo
