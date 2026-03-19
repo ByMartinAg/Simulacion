@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String nombreArchivo = "resultados_simulacion.csv"+1; // aqui le van cambiando el nombre del archivo dependiendo la simulacion que vayan a hacer okis
+        String nombreArchivo = "resultados_simulacion.csv"; // aqui le van cambiando el nombre del archivo dependiendo la simulacion que vayan a hacer okis
 
         try (PrintWriter pw = new PrintWriter(new FileWriter(nombreArchivo))) {
 
