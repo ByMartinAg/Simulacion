@@ -24,7 +24,7 @@ public class Main {
 
             // esta parte se pondra hasta arriba, es el header o el encabezado de todo
             StringBuilder header = new StringBuilder();
-            header.append("Corrida,Aceptados,Rechazados,Tiempo total,Espera maxima,Personas que esperaron,Fila maxima");
+            header.append("Simulacion,Aceptados,Rechazados,Tiempo total,Espera maxima,Personas que esperaron,Fila maxima");
             for (int i = 1; i <= Simulacion.NUM_REVISORES; i++) {
                 header.append(",Atendidos R").append(i);
             }
