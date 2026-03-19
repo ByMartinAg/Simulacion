@@ -2,9 +2,7 @@ import java.util.Random;
 
 public class Simulacion {
 
-    // ================================================================
-    //  CONFIGURACION — modifica estos valores para cada escenario
-    // ================================================================
+    // Aqui van a modificar las variables con los valores ahora si, los que tenemos para todos los escenarios
 
     static final int    TOTAL_PERSONAS   = 2000;  // cantidad de asistentes
     static final int    NUM_REVISORES    = 2;     // numero de revisores
@@ -97,8 +95,8 @@ public class Simulacion {
         }
     }
 
-    // Devuelve una linea CSV con los resultados de esta corrida
-    public String toCSV(int corrida) {
+    // Devuelve una linea CSV con los resultados de esta ejecucion
+    public String toCSV(int ejecucion) {
         int    minutos      = tiempoFinTotal / 60;
         int    segundos     = tiempoFinTotal % 60;
         int    espMaxMin    = esperaMaxima / 60;
@@ -106,7 +104,7 @@ public class Simulacion {
         int    aceptados    = TOTAL_PERSONAS - boletosRechazados;
 
         StringBuilder sb = new StringBuilder();
-        sb.append(corrida).append(",");
+        sb.append(ejecucion).append(",");
         sb.append(aceptados).append(",");
         sb.append(boletosRechazados).append(",");
         sb.append(minutos + "m " + segundos + "s").append(",");

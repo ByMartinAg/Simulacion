@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String nombreArchivo = "resultados_simulacion.csv"+1;
+        String nombreArchivo = "resultados_simulacion.csv"+1; // aqui le van cambiando el nombre del archivo dependiendo la simulacion que vayan a hacer okis
 
         try (PrintWriter pw = new PrintWriter(new FileWriter(nombreArchivo))) {
 
@@ -22,7 +22,7 @@ public class Main {
             pw.println("Total corridas:," + simulaciones);
             pw.println();
 
-            // ── Encabezado de columnas ─────────────────────────────────
+            // esta parte se pondra hasta arriba, es el header o el encabezado de todo
             StringBuilder header = new StringBuilder();
             header.append("Corrida,Aceptados,Rechazados,Tiempo total,Espera maxima,Personas que esperaron,Fila maxima");
             for (int i = 1; i <= Simulacion.NUM_REVISORES; i++) {
@@ -30,7 +30,8 @@ public class Main {
             }
             pw.println(header);
 
-            // ── 100 corridas ───────────────────────────────────────────
+            // son la cantidad de veces que se ejecuta, ahi las pone para q vean las 100
+
             for (int i = 1; i <= simulaciones; i++) {
                 Simulacion sim = new Simulacion();
                 sim.ejecutar();
